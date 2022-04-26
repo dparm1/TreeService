@@ -1,4 +1,7 @@
-# 3365-Group-Project
+# TREE Service Project
+
+Provides a application that uses SQL database in backend, API using flask, AXIOS and express NODE JS to create the front end.
+
 For server.js file 
 install NodeJs from https://nodejs.org/en/ 
 in powershell 
