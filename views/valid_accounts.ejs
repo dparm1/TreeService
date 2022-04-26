@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('../partials/head'); %>
+    <meta http-equiv="Refresh" content="1; url='http://localhost:8080/accounts'" />
+</head>
+
+<%- include('../partials/Modal'); %>
+
+<body class="container">
+
+    <header>
+        <%- include('../partials/header'); %>
+    </header>
+
+    <main class="jumbotron">
+        <div class="text-center">
+            <h1>System Privilege Successfully Validated</h1>
+            <h3>Redirecting in to <%= message %> Page...</h3>
+        </div>
+    </main>
+
+    <footer>
+        <%- include('../partials/footer'); %>
+    </footer>
+
+</body>
+</html>

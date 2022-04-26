@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('../partials/head'); %>
+</head>
+
+<%- include('../partials/Modal'); %>
+
+<body class="container">
+
+    <header>
+        <%- include('../partials/header'); %>
+    </header>
+
+    <main class="container">
+        <div class="jumbotron container">
+            <h2 class="text-center">Updating Selected Service</h2>
+            <form action="/license/update" method="post">
+              <div>
+                  <input class="form-control" name="license_list" id="license_id" type="hidden" value=<%=license_id %>>
+                  <label>License Name</label>
+                      <input class="form-control" name="license_name" value=<%=license_name%>>
+                  <label>License Description</label>
+                      <input class="form-control" name="license_description" value=<%=license_description%>>
+                  <label>License Expiration Date</label>
+                      <input class="form-control" name="license_expiration_date" value=<%=license_expiration_date%>>
+                  <button type="submit" style="background-color:#198754" class="btn btn-success">Submit</button>
+              </div>
+            </form> 
+        </div>
+    </main>
+
+    <footer>
+        <%- include('../partials/footer'); %>
+    </footer>
+
+</body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('../partials/head'); %>
+</head>
+
+<%- include('../partials/Modal'); %>
+
+<body class="container">
+
+    <header>
+        <%- include('../partials/header'); %>
+    </header>
+
+    <main class="container">
+        <div class="jumbotron container">
+            <h2 class="text-center">Updating Selected Invoice</h2>
+            <form action="/invoice/update" method="post">
+              <div>
+                  <h2>Update Invoice</h2>
+                  <input class="form-control" name="invoice_list" id="invoice_id" type="hidden" value=<%=invoice_id %>>
+                  <input class="form-control" name="quote_id" id="quote_id" type="hidden" value=<%=quote_id %>>
+                  <label>Invoice Status</label>
+                  <select class="form-control" name="invoice_status" id="invoice_status">
+                    <option value=<%=invoice_status %>><%=invoice_status%></option>           
+                    <option value="In-Progress">Pending</option>
+                    <option value="In-Progress">In-Progress</option>
+                    <option value="Completed">Completed</option>
+                  </select>           
+                  <label>Comment</label>
+                      <input class="form-control" name="comments" value=<%=comments%>>
+                  <label>Due Date</label>
+                      <input class="form-control" name="due_date" value=<%=due_date%>>
+                  <label>Total</label>
+                      <input class="form-control" name="actual_total" value=<%=actual_total%>>
+                  <button type="submit" style="background-color:#198754" class="btn btn-success">Submit</button>
+              </div>
+            </form> 
+        </div>
+    </main>
+
+    <footer>
+        <%- include('../partials/footer'); %>
+    </footer>
+
+</body>
+</html>

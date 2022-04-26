@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('../partials/head'); %>
+</head>
+
+<%- include('../partials/Modal'); %>
+
+<body class="container">
+
+    <header>
+        <%- include('../partials/header'); %>
+    </header>
+
+    <main>
+        <div class="jumbotron">
+            <h2>Customer Feedback</h2>
+            <div>
+            <button class="btn btn-link" id="myBtn">Add Feedback</button>
+
+            <div id="myModal" class="modal">
+
+                <!-- Modal content -->
+                <div class="modal-content">
+                  <span class="close">&times;</span>
+                    
+                  <form action="/customers/feedback/new" method="post">
+                    <h2 class="text-center">Add Feedback</h2>
+                    <div class="jumbotron">
+                        <label for="ex1">Customer</label>
+                            <select class="form-control" name="customer" id="customer">
+                            <% customer.forEach(function(customer) { %>              
+                                <option value=<%=customer.customer_id %>><%=customer.first_name %><%=customer.last_name %></option>
+                            <% }); %>
+                            </select>
+                        <label for="comment">Feedback</label>
+                        <textarea class="form-control" rows="5" name="feedback" id="feedback" placeholder="Insert Feedback Here"></textarea>
+                        <label for="ex1">Feedback Date</label>
+                        <input class="form-control" name="feedbackdate" id="feedbackdate" placeholder="yyyy-mm-dd" type="text"><BR>
+                        <button type="submit" style="background-color:#198754" class="btn btn-success">Submit</button>
+                    </div>
+                  </form> 
+                 </div>
+            </div>
+            
+            <button class="btn btn-link" id="myBtn2">Update Feedback</button>
+            <div id="myModal2" class="modal">
+                <div class="modal-content">
+                    <span class="close2">&times;</span>
+                    <h2 class="text-center">Update Existing Feedback</h2>
+                    <form action="/customers/feedback/update/info" method="post">
+                        <div class="jumbotron">
+                            <!--drop down for Job ID -->
+                            <label for="ex1">Select the Feedback ID You Wish to Update</label>
+                            <select class="form-control" name="feedid" id="feedid">
+                              <% feedback_id_dropdown.forEach(function(feedback_id_dropdown) { %>              
+                                <option value=<%= feedback_id_dropdown.feedback_id%>><%= feedback_id_dropdown.feedback_id%></option>
+                              <% }); %>
+                            </select>
+                            <br>
+                            <button type="submit" style="color:#198754" class="btn btn-success">Submit</button>
+                          </div> 
+                    </form>
+                </div>
+              
+                </div>
+                <button class="btn btn-link" id="myBtn3">Delete Feedback</button>
+                <div id="myModal3" class="modal">
+                    <div class="modal-content">
+                        <span class="close3">&times;</span>
+                        <h2>Delete Existing Feedback</h2>
+                        <form action="/customers/feedback/delete" method="post">
+                            <div class="jumbotron">
+                                <!--drop down for Job ID -->
+                                <label for="ex1">Select the Feedback ID You Wish to Delete</label>
+                                <select class="form-control" name="feedid" id="feedid">
+                                  <% feedback_id_dropdown.forEach(function(feedback_id_dropdown) { %>              
+                                    <option value=<%= feedback_id_dropdown.feedback_id%>><%= feedback_id_dropdown.feedback_id%></option>
+                                  <% }); %>
+                                </select>
+                                <br>
+                                <button type="submit" style="color:#198754" class="btn btn-success">Submit</button>
+                              </div> 
+                        </form>
+                    </div>
+                  
+                    </div>
+            </div>
+            <div>
+                <table class="table">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>Feedback ID</th>
+                            <th>Name</th>
+                            <th style="width: 560px">Feedback</th>
+                            <th>Date</th>                       
+                        </tr>
+                    </thead>
+                    <tbody>
+                    <% feedback_list.forEach(function(feedback_list) { %>
+                    <tr>
+                        <td><%= feedback_list.feedback_id%></td>
+                        <td><%= feedback_list.last_name%>,<%= feedback_list.first_name%> </td>
+                        <td><%= feedback_list.customer_comments%></td>
+                        <td><%= feedback_list.feedback_date%></td>
+                    </tr>
+                    <% }); %>
+                   
+                </tbody>
+                </table>    
+            </div>
+        </div>
+   
+    </main>
+
+    <footer>
+        <%- include('../partials/footer'); %>
+    </footer>
+
+</body>
+</html>

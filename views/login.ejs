@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('../partials/head'); %>
+</head>
+
+<style>
+    h1 {
+        color:black;
+        font-size: 50px;
+        text-align: center;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    .message {
+        color: red;
+        font-size: 20px;
+        text-align: center;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+</style>
+
+<body class="container">
+    <div class = "text-center">
+        <img src = "https://i.imgur.com/K4Y9cro.png" width="200" height="200"/>
+    </div>
+    <main>
+        
+        <div>
+            
+            <h1>Torres Tree Company</h1><BR><BR><BR>
+            <form action="/login" method="post" class="jumbotron">
+                <h2>Please sign in</h2>
+                <div class="form-group">
+                    <label for="exampleInputEmail1" class="form-label">Username</label>
+                    <input type="text" id="username" name="username" class="form-control" placeholder="Username" required
+                    autofocus>
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputPassword1" class="form-label">Password</label>
+                    <input type="password" name="password" id="inputPassword" class="form-control" placeholder="Password"
+                    required>
+                 </div>
+
+
+                <input class="btn btn-lg btn-primary btn-block" type="submit">
+            </form><BR><BR>
+
+                <% if (flag == 1) { %>
+                    <p class="message"><%= response %></p>
+                    <p class="message">PLEASE TRY AGAIN</p>
+                <% } %>
+        </div>
+    </main>
+
+</body>
+
+</html>

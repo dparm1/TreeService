@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('../partials/head'); %>
+    <!--<meta http-equiv="Refresh" content="1; url='http://localhost:8080/empinfo'" />-->
+</head>
+<%- include('../partials/Modal'); %>
+<body class="container">
+
+    <header>
+        <%- include('../partials/header'); %>
+    </header>
+
+    <main>
+        <div class="jumbotron">
+            <h2>Employees</h2>
+            <div> 
+                <div>
+                    <div>
+                        <button class="btn btn-link" id="myBtn">Add Employee</button>
+            
+                        <div id="myModal" class="modal">
+                            <!-- Modal content -->
+                            <div class="modal-content">
+                                <span class="close">&times;</span>
+                                <form action="/employees/new" method="post">
+                                <div class="col-xs-3">
+                                    <h2>Add Employee</h2>
+                                    <!--drop down for selection of customers-->
+                                    <!--drop down of active/terminated status-->
+                                    <label for="ex1">Employee Status</label>
+                                    <select class="form-control" name="empstatus" id="invoicestatus">
+                                        <option value="Active">Active</option>
+                                        <option value="Terminated">Terminated</option>
+                                    </select>
+                                    <label for="ex1">Roles</label>
+                                    <select class="form-control" name="role_list" id="role_list">
+                                        <% role_list.forEach(function(role_list) { %>              
+                                        <option value=<%=role_list.role_id %>><%=role_list.role_name %></option>
+                                        <% }); %>
+                                    </select>
+                                    <label for="ex1">First Name</label>
+                                    <input class="form-control" name="firstname" id="ex1" type="text"><BR>
+                                    <label for="ex1">Last Name</label>
+                                    <input class="form-control" name="lastname" id="ex1" type="text"><BR>
+                                    <label for="ex1">Phone</label>
+                                    <input class="form-control" name="empphone" id="ex1" type="text"><BR>
+                                    <label for="ex1">Email</label>
+                                    <input class="form-control" name="empemail" id="ex1" type="text"><BR>
+                                    <label for="ex1">Street</label>
+                                    <input class="form-control" name="empstreet" id="ex1" type="text"><BR> 
+                                    <label for="ex1">City</label>
+                                    <input class="form-control" name="empcity" id="ex1" type="text"><BR>   
+                                    <label for="ex1">State</label>                                                             
+                                    <select class="form-control" name="states" id="state">
+                                        <% states.forEach(function(states) { %>              
+                                        <option value=<%=states.state_code_id %>><%=states.state_name %></option>
+                                        <% }); %>
+                                    </select>
+                                    <label for="ex1">Zip Code</label>
+                                    <input class="form-control" name="empzipcode" id="ex1" type="text"><BR>
+                                    <button type="submit" style="background-color:#198754" class="btn btn-success">Submit</button>
+                                    
+                                </div>
+                            </form>        
+                        </div> 
+                                   
+                    </div>
+                    <button class="btn btn-link" id="myBtn2">Update Employee</button>
+                    <div id="myModal2" class="modal">
+                        <!-- Modal content -->
+                        <div class="modal-content">
+                            <span class="close2">&times;</span>
+                            <h2 class="text-center">Update Employee</h2>
+                                <form action="/employees/update/info" method="post">
+                                    <div class="jumbotron">
+                                        <!--drop down for Job ID -->
+                                        <label for="ex1">Select the Employee ID You Wish To Update</label>
+                                          <select class="form-control" name="employee_list" id="mainid">
+                                            <% employee_list.forEach(function(employee_list) { %>              
+                                              <option value=<%= employee_list.employee_id%>><%= employee_list.employee_id%></option>
+                                            <% }); %>
+                                          </select>
+                                        <br>
+                                        <button type="submit" style="color:#198754" class="btn btn-success">Submit</button>
+                                      </div> 
+                                </form>       
+                    </div> 
+                               
+                </div>
+                <button class="btn btn-link" id="myBtn3">Delete Employee</button>
+                <div id="myModal3" class="modal">
+                    <!-- Modal content -->
+                    <div class="modal-content">
+                        <span class="close3">&times;</span>
+                        <h2 class="text-center">Delete Employee</h2>
+                                <form action="/employees/delete" method="post">
+                                    <div class="jumbotron">
+                                        <!--drop down for Job ID -->
+                                        <label for="ex1">Select the Employee ID You Wish To Delete</label>
+                                          <select class="form-control" name="employee_list" id="mainid">
+                                            <% employee_list.forEach(function(employee_list) { %>              
+                                              <option value=<%= employee_list.employee_id%>><%= employee_list.employee_id%></option>
+                                            <% }); %>
+                                          </select>
+                                        <br>
+                                        <button type="submit" style="color:#198754" class="btn btn-success">Submit</button>
+                                      </div> 
+                                </form>        
+                </div> 
+                           
+            </div>
+                </div>
+    
+        </div>
+        <div>
+            <table class="table">
+                <thead class="table-dark">
+                    <tr>
+                        
+                        <th>Name</th>
+                        <th>Role</th>
+                        <th>Role Description</th>
+                        <th>Phone</th>
+                        <th>Email</th>
+                        <th>Address</th>
+                    </tr>
+                </thead>
+                <tbody>
+                <% employee_list.forEach(function(employee_list) { %>
+                <tr>
+                    <td><%= employee_list.last_name%>,&nbsp<%= employee_list.first_name%></td>
+                    <td><%= employee_list.role_name%></td>
+                    <td><%= employee_list.role_description%></td>
+                    <td><%= employee_list.emp_phone%></td>
+                    <td><%= employee_list.emp_email%></td>
+                    <td><%= employee_list.emp_street%><br><%=employee_list.emp_city%>,&nbsp<%=employee_list.state_name%>&nbsp<%=employee_list.emp_zipcode%></td>
+                </tr>
+                <% }); %>
+               
+            </tbody>
+            </table>    
+        </div>
+    </main>
+
+    <footer>
+        <%- include('../partials/footer'); %>
+    </footer>
+
+</body>
+</html>

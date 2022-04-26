@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('../partials/head'); %>
+</head>
+
+<%- include('../partials/Modal'); %>
+
+<body class="container">
+
+    <header>
+        <%- include('../partials/header'); %>
+    </header>
+
+    <main class="container">
+        <div class="jumbotron container">
+            <form action="/customer/update" method="post">
+                <div>
+                    <h2 class="text-center">Update Customer</h2>
+                    <div class="jumbotron">
+                        <input class="form-control hidden" name="customer_id" id="customer_id" type="text" value=<%=customer_id %>>
+                        <label for="ex1">First Name</label>
+                        <input class="form-control" name="firstname" id="firstname" type="text" value=<%=first_name %>>
+                        <label for="ex1">Last Name</label>
+                        <input class="form-control" name="lastname" id="lastname" type="text" value=<%=last_name %>>
+                        <label for="ex1">Phone</label>
+                        <input class="form-control" name="phone" id="phone" type="tel" value=<%=phone %>>
+                        <label for="ex1">Email</label>
+                        <input class="form-control" name="email" id="email" type="text" value=<%=email %>>
+                        <label for="ex1">Street</label>
+                        <input class="form-control" name="street" id="street" type="text" value=<%=street %>>
+                        <label for="ex1">City</label>
+                        <input class="form-control" name="city" id="city" type="text" value=<%=city %>> 
+                        <!--Drop down for state-->
+                        <label for="ex1">State</label>
+                        <select class="form-control" name="state" id="state">
+                            <option value=<%=state%>><%=state%></option>
+                            <% states.forEach(function(states) { %>              
+                            <option value=<%=states.state_code_id %>><%=states.state_name %></option>
+                            <% }); %>
+                        </select><BR>
+                        
+                        <label for="ex1">Zip Code</label>
+                        <input class="form-control" name="zipcode" id="zipcode" type="text" value=<%=zipcode %>> 
+                        <button type="submit" style="background-color:#198754" class="btn btn-success">Submit</button>
+                    </div>
+                </div>
+              </form>  
+        </div>
+    </main>
+
+    <footer>
+        <%- include('../partials/footer'); %>
+    </footer>
+
+</body>
+</html>

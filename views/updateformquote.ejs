@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('../partials/head'); %>
+</head>
+
+<%- include('../partials/Modal'); %>
+
+<body class="container">
+
+    <header>
+        <%- include('../partials/header'); %>
+    </header>
+
+    <main class="container">
+        <div class="jumbotron container">
+            <h2 class="text-center">Updating Selected Quote</h2>
+            <form action="/quote/update" method="post">
+              <div>
+                  <h2>Update Quote</h2>
+                  <input class="form-control" name="quote_list" id="quote_id" type="hidden" value=<%=quote_id %>>
+                  <label>Service</label>
+                  <select class="form-control" name="service_list" id="services">
+                    <option value=<%=service_list%>><%=service_list%></option>
+                        <% service_list.forEach(function(service_list) { %>              
+                        <option value=<%=service_list.service_id %>><%=service_list.service_name %></option>
+                    <% }); %>
+                    </select><BR>                           
+                  <label>Comment</label>
+                      <input class="form-control" name="comments" value=<%=comments%>>                
+                  <label>Total</label>
+                      <input class="form-control" name="total_cost" value=<%=total_cost%>>
+                  <button type="submit" style="background-color:#198754" class="btn btn-success">Submit</button>
+              </div>
+            </form> 
+        </div>
+    </main>
+
+    <footer>
+        <%- include('../partials/footer'); %>
+    </footer>
+
+</body>
+</html>

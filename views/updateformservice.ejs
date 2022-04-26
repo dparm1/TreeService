@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('../partials/head'); %>
+</head>
+
+<%- include('../partials/Modal'); %>
+
+<body class="container">
+
+    <header>
+        <%- include('../partials/header'); %>
+    </header>
+
+    <main class="container">
+        <div class="jumbotron container">
+            <h2 class="text-center">Updating Selected Service</h2>
+            <form action="/service/update" method="post">
+              <div>
+                  <input class="form-control" name="service_id" id="service_id" type="hidden" value=<%=service_id %>>
+                  <label>Service Name</label>
+                      <input class="form-control" name="service_name" value=<%=service_name%>>
+                  <label>Service Description</label>
+                      <input class="form-control" name="service_description" value=<%=service_description%>>
+                  <label>Service Cost</label>
+                      <input class="form-control" name="recommended_service_cost" value=<%=recommended_service_cost%>>
+                  <button type="submit" style="background-color:#198754" class="btn btn-success">Submit</button>
+              </div>
+            </form> 
+        </div>
+    </main>
+
+    <footer>
+        <%- include('../partials/footer'); %>
+    </footer>
+
+</body>
+</html>

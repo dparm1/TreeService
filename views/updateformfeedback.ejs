@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('../partials/head'); %>
+</head>
+
+<%- include('../partials/Modal'); %>
+
+<body class="container">
+
+    <header>
+        <%- include('../partials/header'); %>
+    </header>
+
+    <main class="container">
+        <div class="jumbotron container">
+            <h2 class="text-center">Updating Selected Feedback</h2>
+            <form action="/customers/feedback/update" method="post">
+              <div>
+                <input class="form-control" name="feedback_id" id="feedback_id" type="hidden" value=<%=feedback_id %>>              
+                <label for="ex1">Customer</label>
+                    <select class="form-control" name="customer" id="customer">
+                        <option value=<%=customer_id%>>Currently Selected Customer: <%=customer_lname%>, <%=customer_fname%> </option>  
+                        <% customer.forEach(function(customer) { %>            
+                        <option value=<%=customer.customer_id %>><%=customer.last_name %>, <%=customer.first_name %></option>
+                        <% }); %>
+                    </select>
+                <label>Customer Comment</label>
+                    <input class="form-control" name="customer_comments" value=<%=customer_comments%>>
+                <label>Feedback Date</label>
+                    <input class="form-control" name="feedback_date" value=<%=feedback_date%>>
+                    <br>
+                <button type="submit" style="background-color:#198754" class="btn btn-success">Submit</button>
+              </div>
+            </form> 
+        </div>
+    </main>
+
+    <footer>
+        <%- include('../partials/footer'); %>
+    </footer>
+
+</body>
+</html>

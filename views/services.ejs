@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('../partials/head'); %>
+</head>
+<%- include('../partials/Modal'); %>
+<body class="container">
+
+    <header>
+        <%- include('../partials/header'); %>
+    </header>
+
+    <main>
+        <div class="jumbotron">
+            <h2>Services</h2>
+            <div>
+                <div>
+                    <button class="btn btn-link" id="myBtn">Add New Service</button>
+        
+                    <div id="myModal" class="modal">
+        
+                        <!-- Modal content -->
+                        <div class="modal-content">
+                          <span class="close">&times;</span>
+                          <!--Content goes here-->
+                          <form action="/service/add" method="post">
+                            <h2 class="text-center">Add New Service</h2>
+                            <div class="jumbotron">
+                                <label>Service Name</label>
+                                    <input class="form-control" name="service" id="ex1" type="text">
+                                <label>Service Description</label>
+                                    <input class="form-control" name="description" id="ex1" type="text">
+                                <label>Service Cost</label>
+                                    <input class="form-control" name="cost" id="ex1" type="text"><BR>
+                                <button type="submit" style="background-color:#198754" class="btn btn-success">Submit</button>
+                            </div>
+                          </form> 
+                        </div>                    
+                    </div>
+                    
+                    <button class="btn btn-link" id="myBtn2">Update Existing Service</button>
+        
+                    <div id="myModal2" class="modal">
+                        <!-- Modal content -->
+                        <div class="modal-content">
+                            <span class="close2">&times;</span>
+                            <!--Content goes here-->
+                            <h2 class="text-center">Update A Service</h2>
+                            <form action="/service/update/info" method="POST">
+                                <div class="jumbotron">
+                                    <!--drop down for Job ID -->
+                                    <label>Select the Service ID You Wish To Update</label>
+                                    <select class="form-control" name="service_id" id="service_id">
+                                      <% services_list.forEach(function(services_list) { %>              
+                                        <option value=<%= services_list.service_id%>><%= services_list.service_id%></option>
+                                      <% }); %>
+                                    </select>
+                                    <br>
+                                    <button type="submit" style="color:#198754" class="btn btn-success">Submit</button>
+                                  </div>                     
+                            </form>
+                        </div>
+        
+                    </div>
+
+                
+    
+                    <button class="btn btn-link" id="myBtn3">Delete Exisiting Service</button>
+        
+                    <div id="myModal3" class="modal">
+        
+                        <!-- Modal content -->
+                        <div class="modal-content">
+                          <span class="close3">&times;</span>
+                          <h2 class="text-center">Delete A Service</h2>
+                            <form action="/service/delete" method="POST">
+                                <div class="jumbotron">
+                                    <!--drop down for Job ID -->
+                                    <label for="ex1">Select the Service ID You Wish To Delete</label>
+                                    <select class="form-control" name="service_id" id="service_id">
+                                    <% services_list.forEach(function(services_list) { %>              
+                                        <option value=<%= services_list.service_id%>><%= services_list.service_id%></option>
+                                    <% }); %>
+                                    </select>
+                                    <br>
+                                    <button type="submit" style="color:#198754" class="btn btn-success">Submit</button>
+                                </div>                     
+                            </form>   
+                         </div>
+        
+                        </div>
+                      
+                    </div>
+        </div>
+        <div>
+        <h3>Current Services Offered</h3>
+        <table class="table">
+            <thead class="table-dark">
+                <tr>
+                    <th>Service ID</th>
+                    <th>Services</th>
+                    <th>Cost</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% services_list.forEach(function(services_list) { %>
+                <tr><td><%= services_list.service_id%></td>
+                  <td><%= services_list.service_name%></td>
+                  <td>$<%= services_list.recommended_service_cost%></td>
+                </tr>
+            </tbody>
+              <% }); %>
+        </table>  
+        </div>
+    </main>
+
+    <footer>
+        <%- include('../partials/footer'); %>
+    </footer>
+
+</body>
+</html>

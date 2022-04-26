@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+
+<head>
+    <%- include('../partials/head'); %>
+</head>
+
+<%- include('../partials/Modal'); %>
+
+<body class="container">
+
+    <header>
+        <%- include('../partials/header'); %>
+    </header>
+
+    <main>
+        <div class="jumbotron">
+            <h2>Equipment Deployment</h2>
+            <div>
+                <div>
+                    <button class="btn btn-link" id="myBtn">Add New Deployment</button>
+        
+                    <div id="myModal" class="modal">
+                        <!-- Modal content -->
+                        <div class="modal-content">
+                            <span class="close">&times;</span>
+                            <!--Content goes here-->    
+                            <form class= "jumbotron" action="/equipdeploy/add" method="post">                              
+                                <div class="col-xs-3" >
+                                    <h2>Add Equipment Deployment</h2>
+                                    <!-- Appointment Date -->
+                                    <label for="ex1">Appointment Date</label><BR>
+                                    <select class="form-control" name="add_scheddate" id="add_scheddate">
+                                    <option value="" selected disabled>Select Date</option>
+                                    <% scheddate.forEach(function(scheddate) { %>              
+                                        <option value=<%=scheddate.invoice_id %>><%=scheddate.app_date %></option>
+                                    <% }); %>
+                                    </select>                                 
+                                </div>
+                                <div class="col-xs-3">
+                                    <!-- Chemical -->
+                                    <label for="ex1">Chemical</label>
+                                    <select class="form-control" name="add_chemical" id="add_chemical">
+                                    <option value="" selected disabled>Select Chemical</option>
+                                    <% chemicals.forEach(function(chemicals) { %>              
+                                        <option value=<%=chemicals.chemical_ID %>><%=chemicals.chemical_Name %></option>
+                                    <% }); %>
+                                    </select> 
+                                    <!-- Tool -->
+                                    <label for="ex1">Tool</label>
+                                    <select class="form-control" name="add_tool" id="add_tool">
+                                    <option value="" selected disabled>Select Tool</option>
+                                    <% tools.forEach(function(tools) { %>              
+                                        <option value=<%=tools.equipment_id %>><%=tools.equipment_name %></option>
+                                    <% }); %>
+                                    </select>
+                                    <!-- Vehicle -->
+                                    <label for="ex1">Vehicle</label>
+                                    <select class="form-control" name="add_vehicle" id="add_vehicle">
+                                    <option value="" selected disabled>Select Vehicle</option>
+                                    <% vehicles.forEach(function(vehicles) { %>              
+                                        <option value=<%=vehicles.vehicle_id %>><%=vehicles.vehicle_name %></option>
+                                    <% }); %>
+                                    </select>
+                                    <!-- Equipment Status -->
+                                    <label for="ex1">Equipment Status</label><BR>
+                                    <select class="form-control" name="equip_status" id="equip_status">
+                                        <option value="Pending">Pending</option>
+                                        <option value="Ongoing">Ongoing</option>
+                                    </select>
+                                    <button type="submit" style="background-color:#198754" class="btn btn-success">Submit</button>
+                                </div>
+                            </form>
+                        </div>
+                      
+                    </div>
+                    
+                    <button class="btn btn-link" id="myBtn2">Update Existing Deployment</button>       
+                    <div id="myModal2" class="modal">
+                        <!-- Modal content -->
+                        <div class="modal-content">
+                          <span class="close2">&times;</span>   
+                          <h2>Update Equipment Deployment</h2>
+                          <div class="col-xs-3">
+                            
+                            <form action="/equipdeploy/update/info" method="post">
+                            <!--Content goes here-->
+                            <label for="ex1">Appointment Date</label><BR>
+                            <input class="form-control" name="upscheddate" id="ex1" type="text">
+                            <label for="ex1">Equipment Status</label><BR>
+                            <!--Drop Down for status-->
+                            <label for="ex1">Chemical</label>
+                            <!-- <input class="form-control" name="chemical" id="ex1" type="text"><BR> -->
+                            <select class="form-control" name="chemical" id="chemical">
+                            <option value="" selected disabled>Select Chemical</option>
+                            <% chemicals.forEach(function(chemicals) { %>              
+                                <option value=<%=chemicals.chemical_ID %>><%=chemicals.chemical_Name %></option>
+                            <% }); %>
+                            </select>
+                            <label for="ex1">Tool</label>
+                            <!-- <input class="form-control" name="tool" id="ex1" type="text"><BR>     -->
+                            <select class="form-control" name="tool" id="tool">
+                            <option value="" selected disabled>Select Tool</option>
+                            <% tools.forEach(function(tools) { %>              
+                                <option value=<%=tools.equipment_id %>><%=tools.equipment_name %></option>
+                            <% }); %>
+                            </select>
+                            <label for="ex1">Vehicle</label>
+                            <!-- <input class="form-control" name="vehicle" id="ex1" type="text"><BR>  -->
+                            <select class="form-control" name="vehicle" id="vehicle">
+                            <option value="" selected disabled>Select Vehicle</option>
+                            <% vehicles.forEach(function(vehicles) { %>              
+                                <option value=<%=vehicles.vehicle_id %>><%=vehicles.vehicle_name %></option>
+                            <% }); %>
+                            </select> 
+                            <button type="submit" style="background-color:#198754" class="btn btn-success">Submit</button>    
+                            </form>
+                          </div>
+                        </div>
+                      
+                    </div>
+    
+                    <button class="btn btn-link" id="myBtn3">Delete Exisiting Deployment</button>
+                    <div id="myModal3" class="modal">        
+                        <!-- Modal content -->
+                        <div class="modal-content">
+                          <span class="close3">&times;</span>
+                          <h2>Delete Existing Deployment</h2>
+                          <form action="/equipdeploy/delete" method="post">
+                            <div class="jumbotron">
+                                <!--drop down for Job ID -->
+                                <label for="ex1">Select the Deployment ID You Wish to Delete</label>
+                                <select class="form-control" name="feedid" id="feedid">
+                                  <% equip_deploy_id.forEach(function(equip_deploy_id) { %>              
+                                    <option value=<%= equip_deploy_id.deploy_id%>><%= equip_deploy_id.deploy_id%></option>
+                                  <% }); %>
+                                </select>
+                                <br>
+                                <button type="submit" style="color:#198754" class="btn btn-success">Submit</button>
+                              </div> 
+                        </form>
+        
+                        </div>
+                      
+                    </div>
+        </div>
+        <div>
+            <h3>Chemical Deployment</h3>
+            <table class="table">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Date</th>
+                        <th>Status</th>
+                        <th>Chemical</th>
+                        <th>Equipment</th>
+                        
+                    </tr>
+                </thead>
+                <tbody>
+                <% chemical_list.forEach(function(chemical_list) { %>
+                <tr><td><%= chemical_list.due_date%></td>
+                    <td><%= chemical_list.app_status%></td>
+                    <td><%= chemical_list.chemical_Name%></td>
+                    <td><%= chemical_list.equipment_name%></td>
+                </tr>
+                <% }); %>
+               
+            </tbody>
+            </table>    
+        </div>
+        <div>
+            <h3>Tools Deployment</h3>
+            <table class="table">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Date</th>
+                        <th>Status</th>
+                        <th>Tool</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% tool_list.forEach(function(tool_list) { %>
+                    <tr>
+                        <td><%= tool_list.due_date%></td>
+                        <td><%= tool_list.app_status%></td>
+                        <td><%= tool_list.equipment_name%></td>
+                    </tr>
+                    <% }); %>
+                </tbody>
+            </table>    
+        </div>
+        <div>
+            <h3>Vehicle Deployment</h3>
+            <table class="table">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Date</th>
+                        <th>Status</th>
+                        <th>Vehicle</th>
+                        <th>VIN</th>
+                        <th>License</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                <% vehicle_list.forEach(function(vehicle_list) { %>
+                <tr><td><%= vehicle_list.due_date%></td>
+                    <td><%= vehicle_list.app_status%></td>
+                    <td><%= vehicle_list.vehicle_name%></td>
+                    <td><%= vehicle_list.vehicle_vin%></td>
+                    <td><%= vehicle_list.vehicle_license%></td>
+
+                </tr>
+                <% }); %>
+               
+            </tbody>
+            </table>    
+        </div>
+    </main>
+
+    <footer>
+        <%- include('../partials/footer'); %>
+    </footer>
+
+</body>
+</html>

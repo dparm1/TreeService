@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('../partials/head'); %>
+    <!--<meta http-equiv="Refresh" content="1; url='http://localhost:8080/systemprivileges'" />-->
+</head>
+<%- include('../partials/Modal'); %>
+<body class="container">
+
+    <header>
+        <%- include('../partials/header'); %>
+    </header>
+
+    <main>
+        <div class="jumbotron">
+            <h2>Security Information(Admin Page)</h2>
+            <div>
+                <div>
+                    <button class="btn btn-link" id="myBtn">Add New Account</button>
+        
+                    <div id="myModal" class="modal">
+        
+                        <!-- Modal content -->
+                        <div class="modal-content">
+                          <span class="close">&times;</span>
+                          <div class="col-xs-3">
+                            <h2>Add New Account</h2>
+                            <form action="/account/new" method="post">
+                            <!--Content goes here-->
+                            <label for="ex1">Select Employee</label>
+                            <select class="form-control" name="employee_list" id="car">
+                                <% employee_list.forEach(function(employee_list) { %>              
+                                  <option value="<%=employee_list.employee_id %>"><%=employee_list.last_name%>,&nbsp;<%=employee_list.first_name%></option>
+                                <% }); %>
+                            </select><BR>
+                            <label for="ex1">Username</label>
+                            <input class="form-control" name="username" id="ex1" type="text"><BR>
+                            <label for="ex1">Password</label>
+                            <input class="form-control" name="userpassword" id="ex1" type="password"><BR>
+                            <label for="ex1">System Privileges</label>
+                            <select class="form-control" name="sytempriv_list" id="systempriv">
+                                <% sytempriv_list.forEach(function(sytempriv_list) { %>              
+                                    <option value="<%=sytempriv_list.privilege_id %>"><%=sytempriv_list.privilege_name%></option>
+                                <% }); %>
+                            </select><BR>
+                            <button type="submit" style="background-color:#198754" class="btn btn-success">Submit</button>    
+                            </form>
+                            </div>
+        
+                        </div>
+                      
+                    </div>
+                    
+                    <button class="btn btn-link" id="myBtn2">Update Existing Account</button>
+        
+                    <div id="myModal2" class="modal">
+                        
+                        <!-- Modal content -->
+                        <div class="modal-content">
+                          <span class="close2">&times;</span>
+                          <h2 class="text-center">Update Existing Account</h2>
+                                <form action="/account/update/info" method="post">
+                                    <div class="jumbotron">
+                                        <!--drop down for Job ID -->
+                                        <label for="ex1">Select the Account ID You Wish To Update</label>
+                                          <select class="form-control" name="security_list" id="mainid">
+                                            <% security_list.forEach(function(security_list) { %>              
+                                              <option value=<%= security_list.account_id%>><%= security_list.account_id%></option>
+                                            <% }); %>
+                                          </select>
+                                        <br>
+                                        <button type="submit" style="color:#198754" class="btn btn-success">Submit</button>
+                                      </div> 
+                                </form>
+                            </div>
+        
+                        </div>
+                      
+              
+    
+                    <button class="btn btn-link" id="myBtn3">Delete Exisiting Account</button>
+        
+                    <div id="myModal3" class="modal">
+        
+                        <!-- Modal content -->
+                        <div class="modal-content">
+                          <span class="close3">&times;</span>
+                          <h2 class="text-center">Delete Existing Account</h2>
+                                <form action="/account/delete" method="post">
+                                    <div class="jumbotron">
+                                        <!--drop down for Job ID -->
+                                        <label for="ex1">Select the Account ID You Wish To Delete</label>
+                                          <select class="form-control" name="login_info" id="mainid">
+                                            <% security_list.forEach(function(security_list) { %>              
+                                              <option value=<%= security_list.account_id%>><%= security_list.account_id%></option>
+                                            <% }); %>
+                                          </select>
+                                        <br>
+                                        <button type="submit" style="color:#198754" class="btn btn-success">Submit</button>
+                                      </div> 
+                                </form>
+        
+                        </div>
+                      
+                    </div>
+        </div>
+        <div>
+            <table class="table">
+                <thead class="table-dark">
+                    <tr>
+                        <th>name</th>
+                        <th>Username</th>
+                        <th>Password</th>
+                        <th>Privilege</th>
+                        <th>Privilege Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% security_list.forEach(function(security_list) { %>
+                    <tr><td><%=security_list.last_name%>, <%= security_list.first_name%></td>
+                    <td><%=security_list.username%></td>
+                    <td><%=security_list.user_password%></td>
+                    <td><%=security_list.privilege_name%></td>
+                    <td><%=security_list.privelege_description%></td>
+                </tr>
+                <% }); %>
+            </tbody>
+            
+            </table>    
+        </div>
+    </main>
+
+    <footer>
+        <%- include('../partials/footer'); %>
+    </footer>
+
+</body>
+</html>

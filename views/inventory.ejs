@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+   
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+<head>
+    <%- include('../partials/head'); %>
+</head>
+<%- include('../partials/Modal'); %>
+<body class="container">
+    
+<header>
+        <%- include('../partials/header'); %>
+    </header>
+
+    <main>
+        <div class="jumbotron">
+          <h2>Tools & Chemicals</h2>
+            <div class="accordion accordion-flush" id="accordionFlushExample">
+                <div class="accordion-item">
+                  <h2 class="accordion-header" id="flush-headingOne">
+                  <!-- TOOL INVENTORY SECTION -->
+                    <button class="accordion-button collapsed h4" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                      Tools Inventory
+                    </button>
+                  </h2>
+                  <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+                    <div class="accordion-body">
+                      <h3>Tools Inventory</h3>
+                      <div>                        
+                        <button class="btn btn-link" id="myBtn">Add New Tool</button>
+                        <div id="myModal" class="modal">                         
+                            <!-- Modal content -->
+                            <div class="modal-content">
+                              <span class="close">&times;</span>
+                              <!-- ADD NEW TOOL MODAL -->
+                              <div class="col-xs-3">
+                                <h2>Add New Tool</h2>
+                                <form action="/tool/new" method="post">
+                                  <!--Content goes here-->
+                                  <label for="ex1">Tool Name</label><BR>
+                                  <input class="form-control" name="equipmentname" id="ex1" type="text">
+                                  <label for="ex1">Tool Type</label><BR>
+                                  <input class="form-control" name="equipmenttype" id="ex1" type="text">
+                                  <label for="ex1">Quality</label>
+                                  <input class="form-control" name="quality" id="ex1" type="text"><BR>
+                                  <label for="ex1">Supplier Name</label>
+                                  <input class="form-control" name="suppliername" id="ex1" type="text"><BR>
+                          
+                                  <button type="submit" style="background-color:#198754" class="btn btn-success">Submit</button>    
+                              </div>
+                            </div>           
+                        </div>
+                        <!-- START OF UPDATE TOOL MODAL -->
+                        <button class="btn btn-link" id="myBtn2">Update A Tool</button>
+                        <div id="myModal2" class="modal">
+                            <div class="modal-content">
+                                <span class="close2">&times;</span>
+                                <h2>Update Existing Tool</h2>
+                                <form action="/tool/update/info" method="post">
+                                    <div class="jumbotron">
+                                        <!--drop down for Job ID -->
+                                        <label for="ex1">Select the Tool ID You Wish to Update</label>
+                                        <select class="form-control" name="tool_list" id="toolid">
+                                          <% tool_list.forEach(function(tool_list) { %>              
+                                            <option value=<%= tool_list.equipment_id%>><%= tool_list.equipment_id%></option>
+                                          <% }); %>
+                                        </select>
+                                        <br>
+                                        <button type="submit" style="color:#198754" class="btn btn-success">Submit</button>
+                                      </div> 
+                                </form>
+                            </div>
+                          
+                            </div>
+                        <!-- START OF DELETION OF TOOL MODAL  -->
+                        <button class="btn btn-link" id="myBtn3">Delete A Tool</button>           
+                        <div id="myModal3" class="modal">           
+                            <!-- Modal content -->
+                            <div class="modal-content">
+                              <span class="close3">&times;</span>
+                              <h2>Delete Existing Tool</h2>
+                              <form action="/tool/delete" method="post">
+                                  <div class="jumbotron">
+                                      <!--drop down for Job ID -->
+                                      <label for="ex1">Select the Tool ID You Wish to Delete</label>
+                                      <select class="form-control" name="tool_list" id="toolid">
+                                        <% tool_list.forEach(function(tool_list) { %>              
+                                          <option value=<%= tool_list.equipment_id%>><%= tool_list.equipment_id%></option>
+                                        <% }); %>
+                                      </select>
+                                      <br>
+                                      <button type="submit" style="color:#198754" class="btn btn-success">Submit</button>
+                                    </div> 
+                              </form>
+                            </div>                         
+                        </div>
+                        <!-- START OF TABLE OUTPUT  -->
+                        <div>
+                          <table class="table">
+                              <thead class="table-dark">
+                                  <tr>
+                                      <th>Tool</th>
+                                      <th>Tool Type</th>
+                                      <th>Quality</th> 
+                                      <th>Supplier</th>     
+                                                           
+                                  </tr>
+                              </thead>
+                              <tbody>
+                                <% tool_list.forEach(function(tool_list) { %>
+                                  <tr>
+                                  <td><%= tool_list.equipment_name%></td>
+                                  <td><%= tool_list.equipment_type%></td>
+                                  <td><%= tool_list.quality%></td>
+                                  <td><%= tool_list.supplier_name%></td>
+                                </tr>
+                              <% }); %>
+                              </tbody>    
+                          </table>    
+                      </div>
+                         
+                      </div>
+                    </div>
+                  </div>
+                <div class="accordion-item">
+                  <h2 class="accordion-header" id="flush-headingTwo">
+                    <button class="accordion-button collapsed h4" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+                      Chemical Inventory
+                    </button>
+                  </h2>
+                  <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
+                    <div class="accordion-body">
+                      <h3>Chemical Inventory</h3>
+                      <div>
+                            <button class="btn btn-link" id="myBtn4">Add New Chemical</button>           
+                            <div id="myModal4" class="modal">          
+                                <!-- Modal content -->
+                              <div class="modal-content">
+                                <span class="close4">&times;</span>
+                              
+                                <div class="col-xs-3">
+                                <h2>Add New Chemical</h2>
+                                <form action="/chemical/new" method="post">
+                                <!--Content goes here-->
+                                <label for="ex1">Chemical Name</label><BR>
+                                <input class="form-control" name="chemicalname" id="ex1" type="text">
+                                <label for="ex1">Chemical Type</label><BR>
+                                <input class="form-control" name="chemcialtype" id="ex1" type="text">
+                                <label for="ex1">Supplier Name</label>
+                                <input class="form-control" name="suppliername" id="ex1" type="text"><BR>
+                                <label for="ex1">License Name</label>
+                                <input class="form-control" name="licensename" id="ex1" type="text"><BR>
+                                <label for="ex1">License Description</label>
+                                <input class="form-control" name="licensedescription" id="ex1" type="text"><BR>
+                                <label for="ex1">License Expiration Date</label>
+                                <input class="form-control" name="licenseexpdate" id="ex1" type="text"><BR>
+                                <button type="submit" style="background-color:#198754" class="btn btn-success">Submit</button>    
+                              </form>
+                              </div>
+                                </div>                             
+                            </div>                           
+                       
+                            <button class="btn btn-link" id="myBtn5">Update Existing Chemical</button>
+                            <div id="myModal5" class="modal">
+                                <div class="modal-content">
+                                    <span class="close5">&times;</span>
+                                    <h2 class="text-center">Update Existing Chemical</h2>
+                                    <form action="/chemical/update/info" method="post">
+                                        <div class="jumbotron">
+                                            <!--drop down for Job ID -->
+                                            <label for="ex1">Select the Chemical ID You Wish to Update</label>
+                                              <select class="form-control" name="chemical_list" id="chemid">
+                                                <% chemical_list.forEach(function(chemical_list) { %>              
+                                                  <option value=<%= chemical_list.chemical_id%>><%= chemical_list.chemical_id%></option>
+                                                <% }); %>
+                                              </select>
+                                            <br>
+                                            <button type="submit" style="color:#198754" class="btn btn-success">Submit</button>
+                                          </div> 
+                                    </form>
+                                </div>
+
+                            </div>
+            
+                            <button class="btn btn-link" id="myBtn6">Delete Exisiting Chemical</button>
+                
+                            <div id="myModal6" class="modal">
+                
+                                <!-- Modal content -->
+                                <div class="modal-content">
+                                  <span class="close6">&times;</span>
+                                  <h2 class="text-center">Delete Existing Chemical</h2>
+                                    <form action="/chemicals/delete" method="post">
+                                        <div class="jumbotron">
+                                            <!--drop down for Job ID -->
+                                            <label for="ex1">Select the Chemical ID You Wish to Delete</label>
+                                              <select class="form-control" name="chemical_list" id="chemid">
+                                                <% chemical_list.forEach(function(chemical_list) { %>              
+                                                  <option value=<%= chemical_list.chemical_id%>><%= chemical_list.chemical_id%></option>
+                                                <% }); %>
+                                              </select>
+                                            <br>
+                                            <button type="submit" style="color:#198754" class="btn btn-success">Submit</button>
+                                          </div> 
+                                    </form>
+                                </div>
+                              
+                            </div>
+
+                    </div>
+                          <div>
+                                <table class="table">
+                                    <thead class="table-dark">
+                                        <tr>
+                                            <th>Chemical</th>
+                                            <th>Chemical Type</th>
+                                            <th>License</th>     
+                                            <th>Supplier</th>                     
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                      <% chemical_list.forEach(function(chemical_list) { %>
+                                        <tr><td><%= chemical_list.chemical_Name%></td>
+                                        <td><%= chemical_list.chemcial_type%></td>
+                                        <td><%= chemical_list.License_name%></td>
+                                        <td><%= chemical_list.supplier_name%></td>
+                                    </tr>
+                                </tbody>
+                                      <% }); %>
+                                </table>    
+                            </div>
+                  </div>
+                </div>
+                <div class="accordion-item">
+                  <h2 class="accordion-header" id="flush-headingThree">
+                    <button class="accordion-button collapsed h4" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
+                      Tool Maintenance
+                    </button>
+                  </h2>
+                  <div id="flush-collapseThree" class="accordion-collapse collapse" aria-labelledby="flush-headingThree" data-bs-parent="#accordionFlushExample">
+                    <div class="accordion-body"> <h3>Tool Maintenance</h3>
+                      <div>
+                        <button class="btn btn-link" id="myBtn7">Add New Repair</button>
+                        <div id="myModal7" class="modal">
+                            <!-- Modal content -->
+                            <div class="modal-content">
+                              <span class="close7">&times;</span>
+                              <div class="col-xs-3">
+                                <h2>Add Repair</h2>
+                                <form action="/repair/new" method="post">
+                                <!--Content goes here-->
+                                  <label for="inputPassword5" class="form-label">Select Equipment</label>
+                                  <select class="form-control" name="equipment_list" id="equipment">
+                                    <% equipment_list.forEach(function(equipment_list) { %>              
+                                      <option value="<%=equipment_list.equipment_id %>"><%=equipment_list.equipment_name%></option>
+                                    <% }); %>
+                                  </select>
+                                  <label for="ex1">Repair Status</label>
+                                  <select class="form-control" name="repairstatus" id="equipment">                          
+                                    <option value="In-Progress">In-Progress</option>  
+                                    <option value="Not-Started">Not-Started</option>  
+                                    <option value="Completed">Completed</option>                                                                    
+                                  </select>
+                                  <label for="ex1">Start Date</label>
+                                  <input class="form-control" name="daterepairstart" id="ex1" type="text"><BR>
+                                  <label for="ex1">Comments</label>
+                                  <input class="form-control" name="repaircomments" id="ex1" type="text"><BR>                               
+                                  <button type="submit" style="background-color:#198754" class="btn btn-success">Submit</button>    
+                                </form>
+                              </div>
+                             </div>
+            
+                            
+                          
+                        </div>
+                        
+                        <button class="btn btn-link" id="myBtn8">Update Existing Repair</button>
+            
+                        <div id="myModal8" class="modal">
+            
+                            <!-- Modal content -->
+                            <div class="modal-content">
+                              <span class="close8">&times;</span>
+                              <h2 class="text-center">Update Existing Repair</h2>
+                                    <form action="/repair/update/info" method="post">
+                                        <div class="jumbotron">
+                                            <!--drop down for Job ID -->
+                                            <label for="ex1">Select the Repair ID You Wish to Update</label>
+                                              <select class="form-control" name="repair_list" id="repairid">
+                                                <% repair_list.forEach(function(repair_list) { %>              
+                                                  <option value=<%= repair_list.repair_id%>><%= repair_list.repair_id%></option>
+                                                <% }); %>
+                                              </select>
+                                            <br>
+                                            <button type="submit" style="color:#198754" class="btn btn-success">Submit</button>
+                                          </div> 
+                                    </form>
+                            </div>
+                          </div>
+                            <button class="btn btn-link" id="myBtn9">Delete Existing Repair</button>
+                            <div id="myModal9" class="modal">
+            
+                              <!-- Modal content -->
+                              <div class="modal-content">
+                                <span class="close9">&times;</span>
+                                <h2 class="text-center">Delete Existing Repair</h2>
+                                      <form action="/repair/delete" method="post">
+                                          <div class="jumbotron">
+                                              <!--drop down for Job ID -->
+                                              <label for="ex1">Select the Repair ID You Wish to Delete</label>
+                                                <select class="form-control" name="repair_list" id="repairid">
+                                                  <% repair_list.forEach(function(repair_list) { %>              
+                                                    <option value=<%= repair_list.repair_id%>><%= repair_list.repair_id%></option>
+                                                  <% }); %>
+                                                </select>
+                                              <br>
+                                              <button type="submit" style="color:#198754" class="btn btn-success">Submit</button>
+                                            </div> 
+                                      </form>
+                              </div>
+                            </div>
+                            
+                        <div>
+                        <table class="table">
+                          <thead class="table-dark">
+                              <tr>
+                                  <th>Equipment</th>
+                                  <th>Repair Status</th>  
+                                  <th>Start Date</th>
+                                  <th>Comments</th>       
+                                                
+                              </tr>
+                          </thead>
+                          <tbody>
+                            <% repair_list.forEach(function(repair_list) { %>
+                              <tr><td><%= repair_list.equipment_name%></td>                                  
+                                  <td><%= repair_list.repair_status%></td>   
+                                  <td><%= repair_list.date_repair_start%></td>
+                                  <td><%= repair_list.repair_comments%></td>                                   
+                              </tr>
+                            <% }); %>       
+                        </tbody>
+                      </table>
+                    </div>
+
+                </div>
+                </div>
+                
+                </div>
+                    
+                <div class="accordion-item">
+                  <h2 class="accordion-header" id="flush-headingFour">
+                    <button class="accordion-button collapsed h4" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseFour" aria-expanded="false" aria-controls="flush-collapseFour">
+                      Licenses
+                    </button>
+                  </h2>
+                  <div id="flush-collapseFour" class="accordion-collapse collapse" aria-labelledby="flush-headingFour" data-bs-parent="#accordionFlushExample">
+                    <div class="accordion-body"> <h3>Licenses</h3>
+                      <div>
+                        <button class="btn btn-link" id="myBtn10">Add New License</button>
+                        <div id="myModal10" class="modal">
+                            <!-- Modal content -->
+                            <div class="modal-content">
+                              <span class="close10">&times;</span>
+                              <form action="/license/add" method="post">
+                                <div class="col-xs-3">
+                                    <label for="ex1">License Name</label>
+                                    <input class="form-control" name="license_name" id="ex1" type="text">
+                                    <label for="ex1">License Description</label>
+                                    <input class="form-control" name="license_description" id="ex1" type="text">
+                                    <label for="ex1">Expiration Date</label>
+                                    <input class="form-control" name="license_expiration_date" id="ex1" type="text"><BR>
+                                    <button type="submit" style="background-color:#198754" class="btn btn-success">Submit</button>
+                              </div>
+                              </form>
+            
+                            </div>
+                          
+                        </div>
+                        
+                        <button class="btn btn-link" id="myBtn11">Update Existing License</button>
+            
+                        <div id="myModal11" class="modal">
+            
+                            <!-- Modal content -->
+                            <div class="modal-content">
+                              <span class="close11">&times;</span>
+                              <h2 class="text-center">Update Existing license</h2>
+                                      <form action="/license/update/info" method="post">
+                                          <div class="jumbotron">
+                                              <!--drop down for Job ID -->
+                                              <label for="ex1">Select the License ID You Wish to Update</label>
+                                                <select class="form-control" name="license_list" id="mainid">
+                                                  <% license_list.forEach(function(license_list) { %>              
+                                                    <option value=<%= license_list.License_id%>><%= license_list.License_id%></option>
+                                                  <% }); %>
+                                                </select>
+                                              <br>
+                                              <button type="submit" style="color:#198754" class="btn btn-success">Submit</button>
+                                            </div> 
+                                      </form>
+                            </div>
+                          </div>
+                        <button class="btn btn-link" id="myBtn13">Delete Existing License</button>
+            
+                        <div id="myModal13" class="modal">
+            
+                            <!-- Modal content -->
+                            <div class="modal-content">
+                              <span class="close13">&times;</span>
+                              <h2>Delete Existing License</h2>
+                              <form action="/license/delete" method="post">
+                                <div class="jumbotron">
+                                    <!--drop down for Job ID -->
+                                    <label for="ex1">Select the License ID You Wish to Delete</label>
+                                      <select class="form-control" name="license_list" id="licenseid">
+                                        <% license_list.forEach(function(license_list) { %>              
+                                          <option value=<%= license_list.License_id%>><%= license_list.License_id%></option>
+                                        <% }); %>
+                                      </select>
+                                    <br>
+                                    <button type="submit" style="color:#198754" class="btn btn-success">Submit</button>
+                                  </div> 
+                            </form>
+                            </div>
+                          
+                        </div>
+                        <div>
+                          <table class="table">
+                              <thead class="table-dark">
+                                  <tr>
+                                      <th>License</th>
+                                      <th>License Description</th>
+                                      <th>Expiration Date</th>     
+                                                    
+                                  </tr>
+                              </thead>
+                              <tbody>
+                                <% license_list.forEach(function(license_list) { %>
+                                <tr><td><%= license_list.License_name%></td>
+                                    <td><%= license_list.License_description%></td>
+                                    <td><%= license_list.License_expiration_date%></td>                                    
+                                </tr>
+                                <% }); %>       
+                            </tbody>
+                          </table>    
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+                
+                </div>
+                  </div>
+                  
+              </div>
+        </div>
+    </main>
+
+    <footer>
+        <%- include('../partials/footer'); %>
+    </footer>
+
+</body>
+</html>

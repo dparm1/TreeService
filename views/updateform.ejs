@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('../partials/head'); %>
+</head>
+
+<%- include('../partials/Modal'); %>
+
+<body class="container">
+
+    <header>
+        <%- include('../partials/header'); %>
+    </header>
+
+    <main class="container">
+        <div class="jumbotron container">
+            <h2 class="text-center">Update <%=dataout.first_name %> <%=dataout.last_name %>'s Scheduled Appointment</h2>
+            <form class="jumbotron" action="/home/update/submit" method="post">
+              <!-- Colum 1 for New Appoinment Modal -->
+              <div class="col-xs-3">
+                <input class="form-control" name="job_id" id="job_id" type="hidden" value=<%=job_id %>>
+                <input class="form-control" name="customer_id" id="customer_id" type="hidden" value=<%=dataout.customer_id %>>
+                <input class="form-control" name="invoice_id" id="invoice_id" type="hidden" value=<%=dataout.invoice_id %>>
+                <input class="form-control" name="quote_id" id="quote_id" type="hidden" value=<%=dataout.quote_id %>>
+                <label>First Name</label>
+                  <input class="form-control" name="firstname" id="firstname" value=<%=dataout.first_name %>>
+                <label>Last Name</label>
+                  <input class="form-control" name="lastname" id="lastname" value=<%=dataout.last_name %>>
+                <label>Phone</label>
+                  <input class="form-control" name="phone" id="exphone1" value=<%=dataout.phone %>>
+                <label>Email</label>
+                  <input class="form-control" name="email" id="email" value=<%=dataout.email %>>
+                <label>Street</label>
+                  <input class="form-control" name="street" id="street" value=<%=dataout.street %>>
+                <label>City</label>
+                  <input class="form-control" name="city" id="city" value=<%=dataout.city %>>
+                <!--drop down for state-->
+                <label>State</label>
+                  <select class="form-control" name="state" id="state">
+                      <option value=<%=dataout.state_code_id %>><%=dataout.state_code_id %></option>
+                    <% states.forEach(function(states) { %>              
+                      <option value=<%=states.state_code_id %>><%=states.state_name %></option>
+                    <% }); %>
+                  </select>
+                <label>Zipcode</label>
+                <input class="form-control" name="zipcode" id="zipcode" type="text" value=<%=dataout.zipcode %>>
+              </div> 
+              <!-- Colum 2 for New Appoinment Modal -->
+              <div class="col-xs-4">
+                <label>Date Of Appointment</label> 
+                  <input class="form-control" name="date" id="date" value=<%=appoint_date %>>
+                <label>Time Of Appointment</label> 
+                  <input class="form-control" name="time" id="time" value=<%=appoint_time %>>
+                <label>Main Service To be Done</label>
+                  <select class="form-control" name="services" id="services">
+                    <% services.forEach(function(services) { %>              
+                      <option name="services" value=<%=services.service_id %>><%=services.service_name%></option>
+                    <% }); %>
+                  </select>
+                <label>Comment:</label>
+                  <textarea class="form-control" rows="5" name="quotecomment" id="comment" ><%=dataout.comments%></textarea>
+                <!--Drop down for employee goes here...-->
+                <label>Employee Assigned</label>
+                  <select class="form-control" name="employee" id="employee">
+                    <option value = <%=dataout.employee_id %>> <%=curremp %> </option>
+                    <% employee.forEach(function(employee) { %>              
+                      <option name="employee" value=<%=employee.employee_id %>><%=employee.last_name%>, <%=employee.first_name%></option>
+                    <% }); %>
+                  </select>
+                <!--Drop Down for Application Status goes here-->
+                <label>Appointment Status</label>
+                  <select class="form-control" name="app_status" id="app_status">
+                      <option value=<%=dataout.app_status %>><%=dataout.app_status %></option>           
+                      <option value="Pending">Pending</option>
+                      <option value="Ongoing">Ongoing</option>
+                      <option value="Completed">Completed</option>
+                      <option value="Cancelled">Cancelled</option>
+                  </select>
+              </div>
+              <!-- Colum 3 for New Appoinment Modal -->
+              <div class="col-xs-3">
+                <label>Quote Total</label><br>
+                  <div class="input-group mb-3">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text">$</span>
+                        <span class="input-group-text">0.00</span>
+                        <input type="text" class="form-control" name="quote" value=<%=dataout.total_cost %>>
+                      </div>
+                  </div>
+                <button type="submit" style="color:#198754" class="btn btn-success">Submit</button>
+              </div>                      
+            </form>
+        </div>
+    </main>
+
+    <footer>
+        <%- include('../partials/footer'); %>
+    </footer>
+
+</body>
+</html>
